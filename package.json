@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1167.0",
-    "zod": "^3.17.3"
+    "zod": "^3.17.3",
+    "zod-to-json-schema": "^3.17.0"
   }
 }

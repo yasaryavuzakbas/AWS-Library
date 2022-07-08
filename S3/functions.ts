@@ -1,7 +1,7 @@
 import aws from 'aws-sdk'
 import fs from'fs'
 import { any } from 'zod';
-import { downloadModel, getModel } from './models';
+import { downloadModel, getModel, listObjectsModel } from './models';
 import {config} from '../config'
 
 const Keys={
@@ -38,14 +38,15 @@ export async function getFile(payload:getModel) {
 
     const s3 = new aws.S3(Keys);
 
-    const bucket = payload?.bucket? payload.bucket :  'lambdabucketyavuz'
-    const key = payload?.key? payload.key : "transcript.pdf"
+    const bucket = payload?.bucket? payload.bucket :  ''
+    const key = payload?.key? payload.key : ""
     const params = {
         Bucket: bucket,
         Key: key,
     };
     try {
         const x = await s3.getObject(params).promise()
+
         return x
     } catch (err) {
         console.log(err);
@@ -65,4 +66,13 @@ export async function listBuckets() {
     
     return bucketList
     
+}
+
+export async function listObjects(payload:listObjectsModel){
+    const s3 = new aws.S3(Keys
+        );
+    const r= await s3.listObjects({Bucket: payload!.bucket}).promise()
+    
+    return r;
+
 }

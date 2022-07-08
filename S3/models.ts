@@ -1,4 +1,5 @@
-import z from 'zod'
+import z, { string } from 'zod'
+import { zodToJsonSchema } from 'zod-to-json-schema'
 
 export const DownloadModel= z.object({
     bucket: z.string(),
@@ -6,13 +7,17 @@ export const DownloadModel= z.object({
     path: z.string().optional(),
     region: z.string().optional(),
 })
-export type downloadModel= z.infer<typeof DownloadModel>
-
-
 
 export const GetModel= z.object({
     bucket: z.string().optional(),
     key: z.string().optional(),
     region: z.string().optional(),
 }).optional()
+
+export const ListObjectsModel= z.object({
+    bucket: z.string(),
+}).optional()
+
+export type listObjectsModel= z.infer<typeof ListObjectsModel>  
 export type getModel= z.infer<typeof GetModel>  
+export type downloadModel= z.infer<typeof DownloadModel>
