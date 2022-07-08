@@ -38,14 +38,14 @@ export async function getFile(payload:getModel) {
 
     const s3 = new aws.S3(Keys);
 
-    const bucket = payload.bucket? payload.bucket :  'lambdabucketyavuz'
-    const key = payload.key? payload.key : "transcript.pdf"
+    const bucket = payload?.bucket? payload.bucket :  'lambdabucketyavuz'
+    const key = payload?.key? payload.key : "transcript.pdf"
     const params = {
         Bucket: bucket,
         Key: key,
     };
     try {
-        const x = await s3.getObject(params)
+        const x = await s3.getObject(params).promise()
         return x
     } catch (err) {
         console.log(err);
