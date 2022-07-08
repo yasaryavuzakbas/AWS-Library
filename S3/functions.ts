@@ -1,10 +1,16 @@
 import aws from 'aws-sdk'
 import fs from'fs'
+import { any } from 'zod';
 import { downloadModel, getModel } from './models';
+import {config} from '../config'
+
+const Keys={
+    accessKeyId: config.accessKey,
+    secretAccessKey: config.secretAccessKey}
 
 export async function downloadFile(payload:downloadModel) {
 
-    const s3 = new aws.S3();
+    const s3 = new aws.S3(Keys);
 
     const bucket = payload.bucket? payload.bucket :  'lambdabucketyavuz'
     const key = payload.key? payload.key : "transcript.pdf"
@@ -29,8 +35,8 @@ export async function sleep(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 }
 export async function getFile(payload:getModel) {
-    
-    const s3 = new aws.S3();
+
+    const s3 = new aws.S3(Keys);
 
     const bucket = payload.bucket? payload.bucket :  'lambdabucketyavuz'
     const key = payload.key? payload.key : "transcript.pdf"
@@ -40,7 +46,7 @@ export async function getFile(payload:getModel) {
     };
     try {
         const x = await s3.getObject(params)
-        return x.promise()
+        return x
     } catch (err) {
         console.log(err);
         const message = `fail`;
@@ -51,8 +57,11 @@ export async function getFile(payload:getModel) {
 }
 
 export async function listBuckets() {
-    const s3 = new aws.S3();
-    const bucketList= await s3.listBuckets()
+    const s3 = new aws.S3(Keys
+    );
+    const bucketList= await s3.listBuckets().promise()
+    // console.log(bucketList);
+    
     
     return bucketList
     
