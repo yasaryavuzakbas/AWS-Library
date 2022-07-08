@@ -15,4 +15,4 @@ export const GetModel= z.object({
     key: z.string(),
     region: z.string().optional(),
 })
-export type getModel= z.infer<typeof GetModel>
+export type getModel= z.infer<typeof GetModel>  

@@ -29,7 +29,7 @@ export async function sleep(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 }
 export async function getFile(payload:getModel) {
-
+    
     const s3 = new aws.S3();
 
     const bucket = payload.bucket? payload.bucket :  'lambdabucketyavuz'
