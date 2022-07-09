@@ -1,7 +1,7 @@
 import aws from 'aws-sdk'
 import fs from'fs'
 import { any } from 'zod';
-import { downloadModel, getModel, listObjectsModel } from './models';
+import { downloadModel, getModel, listObjectsModel, uploadModel } from './models';
 import {config} from '../config'
 
 const Keys={
@@ -75,4 +75,32 @@ export async function listObjects(payload:listObjectsModel){
     
     return r;
 
+}
+
+
+export async function uploadFile(payload: uploadModel) {
+
+    const s3 = new aws.S3(Keys);
+
+    const bucket = payload.bucket? payload.bucket :  'lambdabucketyavuz'
+    const key = payload.key? payload.key : "transcript.pdf"
+    const file = require('fs').readFileSync(payload.path);
+    // console.log(file);
+    
+    const params = {
+        Bucket: bucket,
+        Key: key,
+        Body: file
+    };
+    try {
+        const x = await s3.upload(params).promise();
+        console.log(x);
+        return x
+    } catch (err) {
+        console.log(err);
+        const message = `fail`;
+        console.log(message);
+        throw new Error(message);
+    }
+    
 }
