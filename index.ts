@@ -2,8 +2,8 @@ import {getFile, listBuckets,listObjects, uploadFile} from "./S3/functions";
 import { getModel, GetModel } from "./S3/models";
 import { zodToJsonSchema } from 'zod-to-json-schema'
 
-list()
-// get()
+// list()
+get()
 
 async function list() {
     const payload ={}
@@ -21,8 +21,7 @@ async function get() {
     const r= await uploadFile({
         bucket: 'lambdabucketyavuz',
         key: 'newpdf.pdf',
-        path: '/Users/yavuzakbas/Desktop/request.rtf'
+        path: '/Users/yavuzakbas/Desktop/testFolder'
     });
-    // console.log(r);
     
 }

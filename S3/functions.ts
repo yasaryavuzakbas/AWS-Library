@@ -1,6 +1,5 @@
 import aws from 'aws-sdk'
 import fs from'fs'
-import { any } from 'zod';
 import { downloadModel, getModel, listObjectsModel, uploadModel } from './models';
 import {config} from '../config'
 
@@ -38,8 +37,8 @@ export async function getFile(payload:getModel) {
 
     const s3 = new aws.S3(Keys);
 
-    const bucket = payload?.bucket? payload.bucket :  ''
-    const key = payload?.key? payload.key : ""
+    const bucket = payload.bucket
+    const key = payload.key
     const params = {
         Bucket: bucket,
         Key: key,
@@ -61,7 +60,6 @@ export async function listBuckets() {
     const s3 = new aws.S3(Keys
     );
     const bucketList= await s3.listBuckets().promise()
-    // console.log(bucketList);
     
     
     return bucketList
@@ -82,10 +80,9 @@ export async function uploadFile(payload: uploadModel) {
 
     const s3 = new aws.S3(Keys);
 
-    const bucket = payload.bucket? payload.bucket :  'lambdabucketyavuz'
-    const key = payload.key? payload.key : "transcript.pdf"
+    const bucket = payload.bucket
+    const key = payload.key
     const file = require('fs').readFileSync(payload.path);
-    // console.log(file);
     
     const params = {
         Bucket: bucket,

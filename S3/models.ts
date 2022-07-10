@@ -9,14 +9,15 @@ export const DownloadModel= z.object({
 })
 
 export const GetModel= z.object({
-    bucket: z.string().optional(),
-    key: z.string().optional(),
+    bucket: z.string(),
+    key: z.string(),
     region: z.string().optional(),
-}).optional()
+})
 
 export const ListObjectsModel= z.object({
     bucket: z.string(),
-}).optional()
+})
+
 export const UploadModel= z.object({
     bucket: z.string(),
     key: z.string(),
