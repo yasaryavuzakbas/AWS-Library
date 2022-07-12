@@ -1,5 +1,4 @@
 import z, { string } from 'zod'
-import { zodToJsonSchema } from 'zod-to-json-schema'
 
 export const DownloadModel= z.object({
     bucket: z.string(),
