@@ -25,6 +25,13 @@ export const UploadModel= z.object({
     region: z.string().optional(),
 })
 
+export const CreateBucketModel= z.object({
+    bucket: z.string(),
+    region: z.string(),
+    public: z.boolean()
+})
+
+export type createBucketModel= z.infer<typeof CreateBucketModel>  
 export type listObjectsModel= z.infer<typeof ListObjectsModel>  
 export type getModel= z.infer<typeof GetModel>  
 export type downloadModel= z.infer<typeof DownloadModel>

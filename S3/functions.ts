@@ -1,6 +1,6 @@
 import aws from 'aws-sdk'
 import fs from'fs'
-import { downloadModel, getModel, listObjectsModel, uploadModel } from './models';
+import {  downloadModel, getModel, listObjectsModel, uploadModel, createBucketModel } from './models';
 import {config} from '../config'
 
 const Keys={
@@ -30,9 +30,11 @@ export async function downloadFile(payload:downloadModel) {
     }
     
 }
+
 export async function sleep(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 }
+
 export async function getFile(payload:getModel) {
 
     const s3 = new aws.S3(Keys);
@@ -75,7 +77,6 @@ export async function listObjects(payload:listObjectsModel){
 
 }
 
-
 export async function uploadFile(payload: uploadModel) {
 
     const s3 = new aws.S3(Keys);
@@ -100,4 +101,29 @@ export async function uploadFile(payload: uploadModel) {
         throw new Error(message);
     }
     
+}
+export async function createBucket(payload: createBucketModel) {
+    const s3 = new aws.S3(Keys);
+
+    const bucket = payload.bucket
+    const region = payload.region
+    const params = {
+        Bucket: bucket,
+        CreateBucketConfiguration: {
+            LocationConstraint: region,
+           },
+        ACL: payload.public? 'public-read': 'private'
+
+    };
+    try {
+        const x = await s3.createBucket(params).promise();
+        console.log(x);
+        return x
+    } catch (err) {
+        console.log(err);
+        const message = `fail`;
+        console.log(message);
+        throw new Error(message);
+    }
+
 }

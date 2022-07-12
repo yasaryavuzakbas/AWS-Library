@@ -1,9 +1,23 @@
-import {getFile, listBuckets,listObjects, uploadFile} from "./S3/functions";
+import {getFile, listBuckets,listObjects, uploadFile, createBucket} from "./S3/functions";
 import { getModel, GetModel } from "./S3/models";
 import { zodToJsonSchema } from 'zod-to-json-schema'
 
 // list()
-get()
+createbucket()
+
+
+async function createbucket() {
+    const payload ={}
+    // @ts-ignore:next-line
+    const r= await createBucket({
+        bucket: 'testyavuzlocalbucket3',
+        region: "eu-west-1",
+        public: false
+    });
+    console.log(r);
+    
+}
+
 
 async function list() {
     const payload ={}
