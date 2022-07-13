@@ -1,5 +1,4 @@
 import aws from 'aws-sdk'
-import fs from'fs'
 import {  downloadModel, getModel, listObjectsModel, uploadModel, createBucketModel } from './models';
 import {config} from '../config'
 
